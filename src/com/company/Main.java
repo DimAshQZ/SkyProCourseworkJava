@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Arrays;
+
 public class Main {
 
     private static final Employee[] employees = new Employee[10];
@@ -16,13 +18,51 @@ public class Main {
         employees[8] = new Employee("Сергей Брин", 4, 89000);
         employees[9] = new Employee("Мукеш Амбани", 5, 84500);
 
-        getAllEmployeesInfo();
-
+        getAllEmployeesInfo();// 8a
+        System.out.println("Сумма затрат на ЗП в месяц: " + calcSalarySum());// 8b
+        System.out.println("Сотрудник с минимальной ЗП: " + minSalaryEmployee());// 8c
+        System.out.println("Сотрудник с максимальной  ЗП: " + maxSalaryEmployee());// 8d
+        System.out.println("Среднее значение зарплат: " + averageSalary());// 8e
+        allEmployeesName();// 8f
     }
 
     public static void getAllEmployeesInfo() {
-        for (int i = 0; i < employees.length; i++) {
-            System.out.println(employees[i]);
+        Arrays.stream(employees).forEach(System.out::println);
+    }
+
+    public static int calcSalarySum() {
+        return Arrays.stream(employees).mapToInt(Employee::getSalary).sum();
+    }
+
+    public static Employee minSalaryEmployee() {
+        int minSalary = Integer.MAX_VALUE;
+        Employee result = null;
+        for (Employee employee : employees) {
+            if (employee.getSalary() < minSalary) {
+                minSalary = employee.getSalary();
+                result = employee;
+            }
         }
+        return result;
+    }
+
+    public static Employee maxSalaryEmployee() {
+        int maxSalary = 0;
+        Employee result = null;
+        for (Employee employee : employees) {
+            if (employee.getSalary() > maxSalary) {
+                maxSalary = employee.getSalary();
+                result = employee;
+            }
+        }
+        return result;
+    }
+
+    public static double averageSalary() {
+        return calcSalarySum() / employees.length;
+    }
+
+    public static void allEmployeesName() {
+        Arrays.stream(employees).map(employee -> employee.getId() + ") " + employee.getName()).forEach(System.out::println);
     }
 }
