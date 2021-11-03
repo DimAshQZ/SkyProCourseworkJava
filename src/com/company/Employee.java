@@ -6,7 +6,7 @@ public class Employee {
     public static int count;
     private final String name;
     private int department;
-    private double salary;
+    private int salary;
     private int id;
 
     public Employee(String name, int department, int salary) {
@@ -24,7 +24,7 @@ public class Employee {
         return department;
     }
 
-    public double getSalary() {
+    public int getSalary() {
         return salary;
     }
 
